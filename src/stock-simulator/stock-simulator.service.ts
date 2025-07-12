@@ -4,9 +4,9 @@ import { Interval } from "@nestjs/schedule";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 
 @Injectable()
-export class StockSimulatorService{
+export class StockSimulatorService {
 
-  constructor(private eventEmitter: EventEmitter2) {}
+    constructor(private eventEmitter: EventEmitter2) {}
     private readonly logger = new Logger(StockSimulatorService.name);
     public getAvailableStock() {
         let stockData = stocks
@@ -22,7 +22,7 @@ export class StockSimulatorService{
             const newPrice = this.fluctuatePrice(oldPrice);
             stock.currentPrice = newPrice;
 
-            const tick = {
+            const tick: StockTickDTO = {
                 symbol: stock.symbol,
                 name: stock.name,
                 price: newPrice,
@@ -30,16 +30,12 @@ export class StockSimulatorService{
             };
 
             this.eventEmitter.emit('stock.tick', tick);
-            this.logger.debug(`Emitted tick: ${stock.symbol} -> $${newPrice.toFixed(2)}`);
+            //this.logger.debug(`Emitted tick: ${stock.symbol} -> $${newPrice.toFixed(2)}`);
         }
     }
 
     private fluctuatePrice(price: number): number {
         const changePercent = (Math.random() - 0.5) * 0.02; // ±1%
         return +(price * (1 + changePercent)).toFixed(2);
-    }
-
-    private randomPrice(min: number, max: number): number {
-        return +(Math.random() * (max - min) + min).toFixed(2);
     }
 }
