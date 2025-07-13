@@ -26,7 +26,7 @@ export class StockSimulatorService {
                 symbol: stock.symbol,
                 name: stock.name,
                 price: newPrice,
-                timestamp: new Date().toISOString(),
+                timestamp: Date.now(),
             };
 
             this.eventEmitter.emit('stock.tick', tick);

@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getHello() {
-    return this.appService.testRedisCache();
+    return this.appService.getHello();
   }
 }
