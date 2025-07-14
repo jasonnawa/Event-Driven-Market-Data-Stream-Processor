@@ -8,6 +8,8 @@ import { StockAnalyticsModule } from './stock-analytics/stock-analytics.module';
 import { ConfigModule} from '@nestjs/config';
 import { StockIngestorModule } from './stock-ingestor/stock-ingestor.module';
 import { RedisModule } from './redis/redis.module';
+import { UserModule } from './user/user.module';
+import { NotificationModule } from './notification/notification.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +21,8 @@ import { RedisModule } from './redis/redis.module';
     StockAnalyticsModule,
     StockIngestorModule,
     RedisModule,
+    UserModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

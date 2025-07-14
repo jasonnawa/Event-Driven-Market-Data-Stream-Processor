@@ -76,14 +76,22 @@ const cooldownTTL = 2 * 60 * 60 * 1000; // 2 hours
 if (maxPrice / minPrice >= 1.1 && !(await this.redis.get(cooldownKey))) {
   const percentage = ((maxPrice - minPrice) / minPrice) * 100;
 
-  await this.redis.set(cooldownKey, 'true', 'PX', cooldownTTL);
+   const setResult = await this.redis.set(cooldownKey, 'true', 'PX', cooldownTTL, 'NX');
+
+  if (!setResult) {
+    return;
+  }
 
   this.eventEmitter.emit('stock.alert', { symbol, percentageChange: percentage });
 
 } else if (minPrice / maxPrice <= 0.9 && !(await this.redis.get(cooldownKey))) {
   const percentage = ((minPrice - maxPrice) / maxPrice) * 100;
 
-  await this.redis.set(cooldownKey, 'true', 'PX', cooldownTTL);
+    const setResult = await this.redis.set(cooldownKey, 'true', 'PX', cooldownTTL, 'NX');
+
+  if (!setResult) {
+    return;
+  }
 
   this.eventEmitter.emit('stock.alert', { symbol, percentageChange: percentage });
 }
