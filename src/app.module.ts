@@ -10,6 +10,7 @@ import { StockIngestorModule } from './stock-ingestor/stock-ingestor.module';
 import { RedisModule } from './redis/redis.module';
 import { UserModule } from './user/user.module';
 import { NotificationModule } from './notification/notification.module';
+import { StockStreamModule } from './stock-stream/stock-stream.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +24,7 @@ import { NotificationModule } from './notification/notification.module';
     RedisModule,
     UserModule,
     NotificationModule,
+    StockStreamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

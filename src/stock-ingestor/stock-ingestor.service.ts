@@ -98,6 +98,7 @@ if (maxPrice / minPrice >= 1.1 && !(await this.redis.get(cooldownKey))) {
 
 
   this.logger.debug(`Symbol: ${symbol}, Min: ${minPrice}, Max: ${maxPrice}, Ratio: ${(maxPrice / minPrice).toFixed(3)}`);
+  this.eventEmitter.emit('stock.percentage.change', { symbol, price, percentageChange: ((minPrice - maxPrice) / maxPrice) * 100 });
 }
 
 

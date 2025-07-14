@@ -6,8 +6,12 @@ import { EventEmitter2 } from "@nestjs/event-emitter";
 @Injectable()
 export class StockSimulatorService {
 
-    constructor(private eventEmitter: EventEmitter2) {}
+    constructor(private eventEmitter: EventEmitter2) { }
     private readonly logger = new Logger(StockSimulatorService.name);
+    private getRandomSubset<T>(array: T[], count: number): T[] {
+        const shuffled = [...array].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
     public getAvailableStock() {
         let stockData = stocks
         return { status: true, message: 'available stock fetched successfully', data: stockData }
@@ -15,10 +19,13 @@ export class StockSimulatorService {
 
 
 
-    @Interval(1000)
+    @Interval(2500)
     emitStockTicks() {
-        for (const stock of stocks) {
-            const oldPrice = stock.currentPrice
+        const count = Math.floor(Math.random() * 3) + 2; // 2 to 4 stocks
+        const selected = this.getRandomSubset(stocks, count);
+
+        for (const stock of selected) {
+            const oldPrice = stock.currentPrice;
             const newPrice = this.fluctuatePrice(oldPrice);
             stock.currentPrice = newPrice;
 
@@ -30,12 +37,12 @@ export class StockSimulatorService {
             };
 
             this.eventEmitter.emit('stock.tick', tick);
-            //this.logger.debug(`Emitted tick: ${stock.symbol} -> $${newPrice.toFixed(2)}`);
         }
     }
 
+
     private fluctuatePrice(price: number): number {
-        const changePercent = (Math.random() - 0.5) * 0.02; // ±1%
+        const changePercent = (Math.random() - 0.5) * 0.01; // ±0.5%
         return +(price * (1 + changePercent)).toFixed(2);
     }
 }
