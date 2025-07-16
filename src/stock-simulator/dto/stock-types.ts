@@ -1,6 +1,6 @@
 export const stocks: StockType[] = [
   { symbol: 'AAPL', name: 'Apple Inc.', currentPrice: 190.00 },
-  { symbol: 'GOOGL', name: 'Alphabet Inc.', currentPrice: 179.55 },
+  //{ symbol: 'GOOGL', name: 'Alphabet Inc.', currentPrice: 179.55 },
  // { symbol: 'MSFT', name: 'Microsoft Corporation', currentPrice: 438.45 },
   { symbol: 'AMZN', name: 'Amazon.com Inc.', currentPrice: 201.34 },
  // { symbol: 'TSLA', name: 'Tesla Inc.', currentPrice: 246.19 },
