@@ -8,12 +8,7 @@ export class UserController {
 
   @Post('subscribe')
   async subscribeUserToStock(@Body() dto: UserStockSubscribeDto) {
-    return this.userService.subscribeUserToStock(dto);
-  }
-
-  @Post('unsubscribe')
-  async unsubscribeUserToStock(@Body() dto: UserStockSubscribeDto) {
-    return this.userService.unsubscribeUserToStock(dto);
+    return this.userService.toggleUserSubscription(dto);
   }
 
   @Post('subscribe/status')
