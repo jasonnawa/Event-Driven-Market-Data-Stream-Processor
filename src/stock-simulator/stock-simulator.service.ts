@@ -19,7 +19,7 @@ export class StockSimulatorService {
 
 
 
-    @Interval(2500)
+    @Interval(2700)
     emitStockTicks() {
         const count = Math.floor(Math.random() * 3) + 2; // 2 to 4 stocks
         const selected = this.getRandomSubset(stocks, count);
@@ -42,7 +42,7 @@ export class StockSimulatorService {
 
 
     private fluctuatePrice(price: number): number {
-        const changePercent = (Math.random() - 0.5) * 0.01; // ±0.5%
+        const changePercent = (Math.random() - 0.5) * 0.004; // ±0.2%
         return +(price * (1 + changePercent)).toFixed(2);
     }
 }
