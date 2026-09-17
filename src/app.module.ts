@@ -13,6 +13,7 @@ import { RedisModule } from './redis/redis.module';
 import { UserModule } from './user/user.module';
 import { NotificationModule } from './notification/notification.module';
 import { StockStreamModule } from './stock-stream/stock-stream.module';
+import { KeepAliveModule } from './keep-alive/keep-alive.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,6 +34,7 @@ import { StockStreamModule } from './stock-stream/stock-stream.module';
     RedisModule,
     UserModule,
     NotificationModule,
+    KeepAliveModule,
     StockStreamModule,
   ],
   controllers: [AppController],
